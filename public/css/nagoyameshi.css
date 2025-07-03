@@ -1,0 +1,99 @@
+/* public/css/nagoyameshi.css */
+
+
+.nagoyameshi-container {
+    padding-top: 3rem;
+}
+
+.nagoyameshi-btn {
+    background-color: #ff9900;
+    border: none;
+}
+
+.nagoyameshi-btn:hover {
+    background-color: #e68a00;
+}
+
+.nagoyameshi-card-element {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.nagoyameshi-card-holder-name {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.nagoyameshi-card-error {
+    display: none;
+}
+
+.btn-link {
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+.btn-link:hover {
+    opacity: 0.7;
+}
+
+/* 会員トップページ */
+
+.carousel-item img {
+    height: 1000px;
+    object-fit: cover;
+}
+.card-img-top {
+    transition: transform 0.3s ease;
+}
+.card-img-top:hover {
+    transform: scale(1.03);
+}
+
+input.form-control.search-input {
+  border: 2px solid #ffaa00;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input.form-control.search-input:focus {
+  border-color: #ffaa00;
+  box-shadow: 0 0 5px rgba(255, 170, 0, 0.4);
+  outline: none;
+}
+.search-input::placeholder {
+  color: #aaa;       /* 薄いグレー */
+  opacity: 1;        /* Firefox対策：デフォルトで薄すぎる */
+}
+
+.search-btn {
+  background-color: #ffaa00;
+  border-color: #ffaa00;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.search-btn:hover {
+  background-color: #f4511e;
+  border-color: #f4511e;
+}
+
+.category-btn {
+  background-color: #fff;   /* 背景色 */
+  color: #ffaa00;                 /* 文字色 */
+  border-color: #ffaa00;       /* 枠線色 */
+}
+
+.category-btn:hover {
+  background-color: #ffaa00;   /* ホバー時の背景色 */
+  color: #fff;                 /* ホバー時の文字色 */
+  border-color: #ffaa00;
+}
+
+
