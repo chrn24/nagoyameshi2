@@ -40,7 +40,7 @@
     opacity: 0.7;
 }
 
-/* 会員トップページ */
+/* ユーザー：トップページ */
 
 .carousel-item img {
     height: 1000px;
@@ -80,8 +80,8 @@ input.form-control.search-input:focus {
 }
 
 .search-btn:hover {
-  background-color: #f4511e;
-  border-color: #f4511e;
+  background-color: #f47e1e;
+  border-color: #f47e1e;
 }
 
 .category-btn {
@@ -95,5 +95,107 @@ input.form-control.search-input:focus {
   color: #fff;                 /* ホバー時の文字色 */
   border-color: #ffaa00;
 }
+
+/* ユーザー：予約画面関連 */
+
+.btn-primary {
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #f47e1e;
+    border-color: #f47e1e;
+}
+
+.reservation-title.display-6 {
+    font-size: 1.75rem; /* display-6は通常1.25rem～1.75rem */
+}
+
+.btn-success{
+  background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bold;
+}
+
+/* ユーザー：店舗一覧・詳細 */
+.btn-success:hover {
+    background-color: #f47e1e;
+    border-color: #f47e1e;
+}
+
+.shop-name-link {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.shop-name-link:hover {
+    color: #ffaa00; /* ホバー時にブランドカラーで強調 */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-reservation {
+  background-color: #ffaa00;
+  border-color: #ffaa00;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-reservation:hover {
+  background-color: #f47e1e;
+  border-color: #f47e1e;
+  font-weight: bold;
+}
+
+.btn-favorite {
+    background-color: #ff5c8a; /* 鮮やかなピンク */
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-favorite:hover {
+    background-color: #e04e78; /* 少し濃いピンク */
+    color: #fff;
+}
+
+.review-post-box:hover {
+    background-color: #f8f9fa;
+    color: #ffaa00;
+}
+
+.review-post-box:hover h5 {
+    color: #ffaa00;
+}
+
+.review-item {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.review-link {
+    color: #555555;
+    text-decoration: underline;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.review-link:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+
 
 

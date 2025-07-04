@@ -1,89 +1,136 @@
 @extends('layouts.app')
+
 @section('content')
-<h1>店舗詳細</h1>
+<div class="container py-4">
+    <div class="row mb-4">
+        {{-- 左カラム：画像 --}}
+        <div class="col-md-5">
+            <img src="{{ asset($shop->image) }}" alt="{{ $shop->name }}" class="img-fluid rounded shadow-sm">
+        </div>
 
+        {{-- 右カラム：店舗情報 --}}
+        <div class="col-md-7">
+            <h2 class=" display-6 mb-3"><strong>{{ $shop->name }}</strong></h2>
+            <p class="mb-1"><strong>カテゴリ:</strong> {{ $shop->category->name ?? 'なし' }}</p>
+            <p class="mb-1"><strong>価格帯:</strong> ¥{{ number_format($shop->price_min) }} ～ ¥{{ number_format($shop->price_max) }}</p>
+            <p class="mb-1"><strong>営業時間:</strong> {{ $shop->business_hours }}</p>
+            <p class="mb-1"><strong>店休日:</strong> {{ $shop->closed_day }}</p>
+            <p class="mb-1"><strong>住所:</strong> 〒{{ $shop->zip_code }} {{ $shop->address }}</p>
+            <p class="mb-3"><strong>電話番号:</strong> {{ $shop->phone_number }}</p>
 
-<img src="{{ asset($shop->image) }}" alt="{{ $shop->name }}" style="max-width: 300px;">
-<p><strong>カテゴリ:</strong> {{ $shop->category->name ?? 'なし' }}</p>
-<h1>店舗名：{{ $shop->name }}</h1>
-<p>説明：{{ $shop->description }}</p>
+            <p class="mb-2"><strong>お気に入り数:</strong> {{ $shop->favorites->count() }}</p>
 
-<p>お気に入り数: {{ $shop->favorites->count() }}</p>
-@auth
-    @if (auth()->user()->isPremium())
-        {{-- プレミアム会員：登録解除or追加 --}}
-        @if ($favorited)
-            <form action="{{ route('favorites.destroy', $shop->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-link" style="color: red;">♥ お気に入り解除</button>
-            </form>
+            {{-- 店舗説明 --}}
+            <div class="mb-3">
+                <h5 class="fw-bold">店舗説明</h5>
+                <p>{{ $shop->description }}</p>
+            </div>
+
+            {{-- ボタン類：お気に入り＋予約 --}}
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                @auth
+                    @if (auth()->user()->isPremium())
+                        @if ($favorited)
+                            <form action="{{ route('favorites.destroy', $shop->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-favorite">♥ お気に入り解除</button>
+                            </form>
+                        @else
+                            <form action="{{ route('favorites.store', $shop->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-favorite">♡ お気に入りに追加</button>
+                            </form>
+                        @endif
+                        <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}" class="btn btn-reservation">予約する</a>
+                    @else
+                        <a href="{{ route('users.upgrade') }}" class="btn btn-favorite">♡ お気に入りに追加</a>
+                        <a href="{{ route('users.upgrade') }}" class="btn btn-reservation">予約する</a>
+                    @endif
+                @else
+                    <a href="{{ route('users.upgrade') }}" class="btn btn-favorite">♡ お気に入りに追加</a>
+                    <a href="{{ route('users.upgrade') }}" class="btn btn-reservation">予約する</a>
+                @endauth
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+  <div class="mb-4">
+    @auth
+        @if (auth()->user()->isPremium())
+            <a href="{{ route('reviews.create', ['shop' => $shop->id]) }}"
+               class="review-post-box text-decoration-none hover-highlight"
+               style="color: #333;">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-pencil-square fs-3 me-3 text-primary"></i>
+                    <div>
+                        <h5 class="mb-1">レビューを投稿する</h5>
+                    </div>
+                </div>
+            </a>
         @else
-            <form action="{{ route('favorites.store', $shop->id) }}" method="POST" style="display:inline;">
-                @csrf
-                <button type="submit" class="btn btn-link" style="color: gray;">♡ お気に入り</button>
-            </form>
+            <a href="{{ route('users.upgrade') }}"
+               class="review-post-box text-decoration-none hover-highlight"
+               style="color: #666;">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-lock fs-3 me-3 text-secondary"></i>
+                    <div>
+                        <h5 class="mb-1">レビューを投稿する</h5>
+                    </div>
+                </div>
+            </a>
         @endif
     @else
-        {{-- 無料会員は upgrade ページへ --}}
-        <a href="{{ route('users.upgrade') }}" class="btn btn-link" style="color: gray;">♡ お気に入り</a>
-    @endif
-@else
-    {{-- 未会員 --}}
-    <a href="{{ route('users.upgrade') }}" class="btn btn-link" style="color: gray;">♡ お気に入り</a>
-@endauth
+        <a href="{{ route('users.upgrade') }}"
+           class="review-post-box text-decoration-none hover-highlight"
+           style="color: #666;">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-person-circle fs-3 me-3 text-secondary"></i>
+                <div>
+                    <h5 class="mb-1">レビューを投稿する</h5>
+                </div>
+            </div>
+        </a>
+    @endauth
+</div>
 
 
 
-<p>価格帯: ¥{{ number_format($shop->price_min) }} ～ ¥{{ number_format($shop->price_max) }}</p>
-<p>営業時間: {{ $shop->business_hours }}</p>
-<p>店休日: {{ $shop->closed_day }}</p>
-<p>郵便番号: {{ $shop->zip_code }}</p>
-<p>住所: {{ $shop->address }}</p>
-<p>電話番号: {{ $shop->phone_number }}</p>
-
-<hr>
-
-@auth
-    @if (auth()->user()->isPremium())
-        <a href="{{ route('reservations.create', ['shop' => $shop->id]) }}">予約する</a>
-        <a href="{{ route('reviews.create', ['shop' => $shop->id]) }}">レビュー投稿</a>
-    @else
-        <a href="{{ route('users.upgrade') }}">予約する</a>
-        <a href="{{ route('users.upgrade') }}">レビュー投稿</a>
-    @endif
-@else
-    <a href="{{ route('users.upgrade') }}">予約する</a>
-    <a href="{{ route('users.upgrade') }}">レビュー投稿</a>
-@endauth
-
-
-
-{{-- レビュー一覧 --}}
-<h2>レビュー一覧</h2>
-@foreach ($shop->reviews as $review)
-    <div style="margin-bottom: 10px;">
-        <p>評価：{{ $review->rating }}</p>
-        <p>{{ $review->comment }}</p>
+   {{-- レビュー一覧 --}}
+<div class="mb-5">
+    <h4 class="mb-3"><strong>レビュー一覧</strong></h4>
+    @forelse ($shop->reviews as $review)
+    <div class="review-item py-3 d-flex justify-content-between align-items-start">
+        <div>
+            <p class="mb-1"><strong>評価:</strong> {{ $review->rating }}</p>
+            <p class="mb-2">{{ $review->comment }}</p>
+        </div>
 
         @auth
-            @if (auth()->user()->id === $review->user_id)
-                @if (auth()->user()->isPremium())
-                    <a href="{{ route('reviews.edit', ['review' => $review->id]) }}">編集</a>
-                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" style="display:inline;">
+            @if (auth()->id() === $review->user_id && auth()->user()->isPremium())
+                <div class="ms-3 text-end">
+                    <a href="{{ route('reviews.edit', ['review' => $review->id]) }}" class="review-link me-2">編集</a>
+
+                    <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">削除</button>
+                        <button type="submit" class="review-link btn btn-link p-0">削除</button>
                     </form>
-                @else
-                    <a href="{{ route('upgrade') }}">編集（有料会員限定）</a>
-                @endif
+                </div>
             @endif
         @endauth
     </div>
-@endforeach
+@empty
+    <p>まだレビューはありません。</p>
+@endforelse
+</div>
 
+    {{-- トップページに戻るボタン --}}
 
-<br>
-<a href="{{ route('top') }}">トップページに戻る</a>
+    <div class="text-center">
+        <a href="{{ route('top') }}" class="btn btn-secondary">トップページに戻る</a>
+    </div>
+</div>
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ShopController as AdminShopController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\StripeWebhookController;
 
 
 
@@ -56,8 +57,13 @@ Route::middleware(['auth', EnsurePremium::class])->group(function () {
     Route::get('/reservations/create/{shop}', [ReservationController::class, 'create'])->name('reservations.create');
     Route::post('/reservations/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
     Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
+    Route::get('/reservations/complete', [ReservationController::class, 'complete'])->name('reservations.complete');
     Route::get('/reviews/create/{shop}', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/reviews/confirm', [ReviewController::class, 'confirm'])->name('reviews.confirm');
+    Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::post('/reviews/update/confirm', [ReviewController::class, 'updateConfirm'])->name('reviews.update.confirm');
+    Route::post('/reviews/update', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
@@ -100,5 +106,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('home');
 });
+
+    Route::post('/nagoyameshi/public/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 
 require __DIR__.'/auth.php';
