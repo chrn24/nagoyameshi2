@@ -4,17 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\UserSubscription;
+use Stripe\Stripe;
+use Stripe\Invoice;
 
 class SubscriptionController extends Controller
 {
-    public function index()
+  public function index()
     {
-         $subscriptions = UserSubscription::with('user')
-        ->where('stripe_status', 'active')
-        ->get();
-        $totalRevenue = $subscriptions->sum('price_amount');
+        // StripeのAPIキー設定
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        return view('admin.subscriptions.index', compact('subscriptions', 'totalRevenue'));
+        // 最新50件の請求情報を取得
+        $invoiceList = \Stripe\Invoice::all(['limit' => 50]);
+
+        // 支払済みの請求のみを抽出
+        $filteredInvoices = collect($invoiceList->data)->filter(function ($invoice) {
+            return $invoice->amount_paid ; 
+        });
+
+        // 売上合計
+        $totalAmount = $filteredInvoices->sum(function ($invoice) {
+            return $invoice->amount_paid; 
+        });
+
+        return view('admin.subscriptions.index', [
+            'invoices' => $filteredInvoices,
+            'totalAmount' => $totalAmount
+        ]);
     }
-}
+    
+
+ }
+

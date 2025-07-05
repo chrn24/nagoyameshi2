@@ -31,11 +31,6 @@ public function store(Request $request)
     $price = \Stripe\Price::retrieve($priceId);
     $amountYen = $price->unit_amount / 100; 
 
-    
-    // 作成された subscription を取得して上書き
-    $subscription = $user->subscription('premium_plan');
-    $subscription->price_amount = $amountYen;
-    $subscription->save();
 
     // フラッシュメッセージとともにトップページへリダイレクト
     return redirect('/')

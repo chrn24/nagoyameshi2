@@ -30,7 +30,7 @@
                     @csrf
                     @method('delete')
                     <div class="form-group d-flex justify-content-center">
-                        <button class="btn text-white shadow-sm w-50 nagoyameshi-btn-danger">解約</button>
+                        <button class="btn text-white shadow-sm w-50 btn-primary">解約</button>
                     </div>
                 </form>
             </div>

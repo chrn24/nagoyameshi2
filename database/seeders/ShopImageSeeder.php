@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ShopImageSeeder extends Seeder
 {
@@ -15,24 +17,21 @@ class ShopImageSeeder extends Seeder
      */
     public function run()
     {
-        // public/images/shops 配下の画像ファイル名を取得
-        $imageFiles = glob(public_path('images/shops/*.jpg'));
-
-        // 画像ファイル名だけを抽出（パスを除く）
-        $imageNames = array_map(function ($path) {
-            return 'images/shops/' . basename($path);
-        }, $imageFiles);
+        // storageに手動で保存した画像の一覧を取得
+        $imageFiles = glob(storage_path('app/public/shops/*.jpg'));
 
         // shops テーブルのすべてのレコードを取得
         $shops = DB::table('shops')->get();
 
-        // 各ショップにランダムな画像を設定
         foreach ($shops as $shop) {
-            $randomImage = $imageNames[array_rand($imageNames)];
+            $randomImagePath = $imageFiles[array_rand($imageFiles)];
+            $newFileName = basename($randomImagePath); // すでに保存済みなのでそのまま使用
+            $storagePath = 'shops/' . $newFileName;
 
+            // DBのみ更新
             DB::table('shops')
               ->where('id', $shop->id)
-              ->update(['image' => $randomImage]);
+              ->update(['image' => $storagePath]);
         }
     }
 }

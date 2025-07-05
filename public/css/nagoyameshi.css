@@ -196,6 +196,35 @@ input.form-control.search-input:focus {
     text-decoration: underline;
 }
 
+/* マイページ */
+.list-group-item a {
+    font-weight: 500;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.list-group-item a:hover {
+    color: #ffaa00;
+    text-decoration: underline;
+}
+
+.link-danger {
+    color: #cc0000;
+    transition: color 0.2s ease;
+}
+
+.link-danger:hover {
+    color: #b30000;
+    text-decoration: underline;
+}
+
+.list-group-item a {
+    display: block;
+    text-align: center;
+}
+
+
+
 
 
 
