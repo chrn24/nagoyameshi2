@@ -129,9 +129,34 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+{
+    $shop = Shop::findOrFail($id);
+
+    $validated = $request->validate([
+        'category_id' => 'required|exists:categories,id',
+        'name' => 'required|string|max:100',
+        'image' => 'nullable|image',
+        'description' => 'nullable|string',
+        'price_min' => 'nullable|integer',
+        'price_max' => 'nullable|integer',
+        'business_hours' => 'nullable|string|max:100',
+        'business_period' => 'nullable|string|max:100',
+        'closed_day' => 'nullable|string|max:100',
+        'zip_code' => 'nullable|string|max:10',
+        'address' => 'nullable|string',
+        'phone_number' => 'nullable|string|max:20',
+    ]);
+
+    // 画像アップロード
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('shops', 'public');
+        $validated['image'] = $imagePath;
     }
+
+    $shop->update($validated);
+
+    return redirect()->route('admin.shops.index')->with('success', '店舗情報を更新しました');
+}
 
     /**
      * Remove the specified resource from storage.

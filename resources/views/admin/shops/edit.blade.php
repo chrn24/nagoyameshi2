@@ -14,7 +14,8 @@
                 <select name="category_id" id="category_id" class="form-select" required>
                     <option value="">-- カテゴリを選択 --</option>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ $shop->category_id == $category->id ? 'selected' : '' }}>
+                        <option value="{{ $category->id }}"
+                            {{ (old('category_id', $shop->category_id) == $category->id) ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                     @endforeach
@@ -23,13 +24,14 @@
 
             <div class="mb-3">
                 <label for="image" class="form-label">画像：</label>
+                <input type="file" name="image" id="image" class="form-control">
+
                 @if($shop->image)
-                    <div class="mb-2">
-                        <img src="{{ asset('storage/shops/' . $shop->image) }}" width="200" alt="店舗画像">
+                    <div class="mt-2">
+                        <p>現在の画像：</p>
+                        <img src="{{ asset('storage/' . $shop->image) }}" width="200">
                     </div>
                 @endif
-                <input type="file" name="image" id="image" class="form-control">
-                <small class="text-muted">※新しい画像を選択すると上書きされます</small>
             </div>
 
             <div class="mb-3">
@@ -56,28 +58,28 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="business_hours" class="form-label">営業時間：</label>
-                    <input type="text" name="business_hours" id="business_hours" value="{{ old('business_hours', $shop->business_hours) }}" class="form-control">
+                    <input type="text" name="business_hours" id="business_hours" maxlength="100" value="{{ old('business_hours', $shop->business_hours) }}" class="form-control">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="business_period" class="form-label">営業期間：</label>
-                    <input type="text" name="business_period" id="business_period" value="{{ old('business_period', $shop->business_period) }}" class="form-control">
+                    <input type="text" name="business_period" id="business_period" maxlength="100" value="{{ old('business_period', $shop->business_period) }}" class="form-control">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="closed_day" class="form-label">店休日：</label>
-                    <input type="text" name="closed_day" id="closed_day" value="{{ old('closed_day', $shop->closed_day) }}" class="form-control">
+                    <input type="text" name="closed_day" id="closed_day" maxlength="100" value="{{ old('closed_day', $shop->closed_day) }}" class="form-control">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="phone_number" class="form-label">電話番号：</label>
-                    <input type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $shop->phone_number) }}" class="form-control">
+                    <input type="text" name="phone_number" id="phone_number" maxlength="20" value="{{ old('phone_number', $shop->phone_number) }}" class="form-control">
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="zip_code" class="form-label">郵便番号：</label>
-                <input type="text" name="zip_code" id="zip_code" value="{{ old('zip_code', $shop->zip_code) }}" class="form-control">
+                <input type="text" name="zip_code" id="zip_code" maxlength="10" value="{{ old('zip_code', $shop->zip_code) }}" class="form-control">
             </div>
 
             <div class="mb-4">
@@ -85,7 +87,7 @@
                 <input type="text" name="address" id="address" value="{{ old('address', $shop->address) }}" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">更新する</button>
+            <button type="submit" class="btn btn-primary w-100">店舗情報を更新</button>
         </form>
     </div>
 </div>
