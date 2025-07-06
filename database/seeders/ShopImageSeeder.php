@@ -31,7 +31,7 @@ class ShopImageSeeder extends Seeder
             // DBのみ更新
             DB::table('shops')
               ->where('id', $shop->id)
-              ->update(['image' => $newFileName]);
+              ->update(['image' => $storagePath]);
         }
     }
 }
