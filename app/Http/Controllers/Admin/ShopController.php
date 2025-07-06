@@ -86,10 +86,10 @@ class ShopController extends Controller
     ]);
     $imagePath = null;
 
-    // 画像一時保存
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('temp', 'public');
-    }
+    $imagePath = $request->file('image')->store('temp', 'public');
+    session(['temp_image_path' => $imagePath]); // セッションに保存
+}
 
     return view('admin.shops.confirm', [
         'input' => $validated,
