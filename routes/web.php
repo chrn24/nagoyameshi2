@@ -95,8 +95,9 @@ Route::middleware(['auth', 'verified', 'subscribed'])->group(function () {
 // 管理者ページ
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', 'admin/login')->name('login');
-    Route::resource('shops', AdminShopController::class);
     Route::post('/shops/confirm', [AdminShopController::class, 'confirm'])->name('shops.confirm');
+    Route::post('/shops/{shop}/editconfirm', [AdminShopController::class, 'editConfirm'])->name('shops.editconfirm');
+    Route::resource('shops', AdminShopController::class);
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'index'])->name('subscriptions.index');
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::resource('categories', CategoryController::class)->except(['show']);

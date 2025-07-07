@@ -1,0 +1,14 @@
+.custom-container {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.description-cell {
+    max-width: 300px;      /* 横幅を固定 or 最大幅で調整 */
+    white-space: normal;   /* 折り返しを有効化 */
+    word-wrap: break-word; /* 長い単語も折り返す */
+    overflow-wrap: break-word;
+}

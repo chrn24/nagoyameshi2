@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Admin | @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <link rel="stylesheet" href="{{ asset('css/adminnagoyameshi.css') }}">
 </head>
 <body class="bg-light">
     {{-- ヘッダーを共通化 --}}
@@ -26,7 +28,7 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container-fluid custom-container mt-4 ">
         @yield('content')
     </div>
     @yield('scripts')
