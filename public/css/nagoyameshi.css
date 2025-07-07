@@ -224,6 +224,33 @@ input.form-control.search-input:focus {
 }
 
 
+/* ヘッダー */
+.nav-link-custom {
+    text-decoration: none;     /* 初期状態では下線なし */
+    color: #333333;            /* 通常時の文字色（例） */
+    transition: all 0.3s ease; /* なめらかな変化 */
+}
+
+.nav-link-custom:hover {
+    text-decoration: underline; /* ホバー時に下線 */
+    color: #ffaa00;             /* ホバー時の文字色（例） */
+}
+
+/* ユーザー：Auth関連ビュー */
+
+.card {
+    border-radius: 1rem;
+}
+
+a.text-decoration-none:hover {
+    text-decoration: underline;
+    color: #555555;
+}
+
+.card-body {
+    padding: 50px; /* 内側全体に余白 */
+}
+
 
 
 
