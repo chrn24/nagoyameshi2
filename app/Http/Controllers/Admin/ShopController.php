@@ -54,14 +54,14 @@ class ShopController extends Controller
         'phone_number' => 'nullable|string|max:20',
     ]);
 
-   $imagePath = $request->input('imagePath');
+   $validated['image'] = $request->input('imagePath');
 
-    if ($imagePath && \Storage::disk('public')->exists($imagePath)) {
-        // 保存先パスを決める（例：shops/ フォルダ）
-        $finalPath = 'shops/' . basename($imagePath);
-        \Storage::disk('public')->move($imagePath, $finalPath);
-        $validated['image'] = $finalPath; // 画像パスをDB保存用にセット
-    }
+    // if ($imagePath && \Storage::disk('public')->exists($imagePath)) {
+    //     // 保存先パスを決める（例：shops/ フォルダ）
+    //     $finalPath = 'shops/' . basename($imagePath);
+    //     \Storage::disk('public')->move($imagePath, $finalPath);
+    //     $validated['image'] = $finalPath; // 画像パスをDB保存用にセット
+    // }
 
     Shop::create($validated);
     return redirect()->route('admin.shops.index')->with('success', '店舗を登録しました');
@@ -72,7 +72,7 @@ class ShopController extends Controller
     $request->flash(); // oldデータ保持
     $validated = $request->validate([
         'category_id' => 'required|exists:categories,id',
-        'image' => 'nullable|image|max:2048',
+        'image' => 'nullable|image|max:45',
         'name' => 'required|string|max:100',
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
@@ -88,7 +88,8 @@ class ShopController extends Controller
 
     // 画像一時保存
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('temp', 'public');
+        // $imagePath = $request->file('image')->store('temp', 'public');
+        $imagePath = base64_encode(file_get_contents($request->image->getRealPath()));
     }
 
     return view('admin.shops.confirm', [
@@ -128,7 +129,7 @@ class ShopController extends Controller
     $validated = $request->validate([
         'category_id' => 'required|exists:categories,id',
         'name' => 'required|string|max:100',
-        'image' => 'nullable|image|max:2048',
+        'image' => 'nullable|image|max:45',
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
         'price_max' => 'nullable|integer',
@@ -143,7 +144,7 @@ class ShopController extends Controller
     $imagePath = null;
 
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('temp', 'public');
+        $imagePath = base64_encode(file_get_contents($request->image->getRealPath()));
     }
 
     return view('admin.shops.editconfirm', [
@@ -168,7 +169,7 @@ class ShopController extends Controller
     $validated = $request->validate([
         'category_id' => 'required|exists:categories,id',
         'name' => 'required|string|max:100',
-        'image' => 'nullable|image|max:2048',
+        'image' => 'nullable|image|max:45',
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
         'price_max' => 'nullable|integer',
@@ -180,16 +181,18 @@ class ShopController extends Controller
         'phone_number' => 'nullable|string|max:20',
     ]);
 
-    // 画像アップロード
-    if ($request->hasFile('image')) {
-    $imagePath = $request->file('image')->store('shops', 'public');
-    $validated['image'] = $imagePath;
-   } elseif ($request->filled('imagePath')) {
-    $tempPath = $request->input('imagePath');
-    $finalPath = 'shops/' . basename($tempPath);
-    \Storage::disk('public')->move($tempPath, $finalPath);
-    $validated['image'] = $finalPath;
-  }
+//     // 画像アップロード
+//     if ($request->hasFile('image')) {
+//     $imagePath = $request->file('image')->store('shops', 'public');
+//     $validated['image'] = $imagePath;
+//    } elseif ($request->filled('imagePath')) {
+//     $tempPath = $request->input('imagePath');
+//     $finalPath = 'shops/' . basename($tempPath);
+//     \Storage::disk('public')->move($tempPath, $finalPath);
+//     $validated['image'] = $finalPath;
+//   }
+
+ $validated['image'] = $request->input('imagePath');
 
 
     $shop->update($validated);

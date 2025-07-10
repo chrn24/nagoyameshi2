@@ -41,7 +41,8 @@
                     @endphp
 
                     @if($path)
-                        <img src="{{ asset('storage/' . $path) }}" width="200">
+                        <img src="data:image/png;base64,{{ $path }}" width="200">
+                        
                     @else
                         なし
                     @endif

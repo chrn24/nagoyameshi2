@@ -6,7 +6,7 @@
 <form method="POST" action="{{ route('admin.shops.store') }}">
     @csrf
     <input type="hidden" name="category_id" value="{{ $input['category_id'] }}">
-    <input type="hidden" name="imagePath" value="{{ $imagePath }}">
+    <input type="hidden" name="imagePath" value="{{ session('temp_image_path', $imagePath) }}">
     <input type="hidden" name="name" value="{{ $input['name'] }}">
     <input type="hidden" name="description" value="{{ $input['description'] }}">
 <input type="hidden" name="price_min" value="{{ $input['price_min'] }}">
@@ -33,11 +33,16 @@
         <tr><th>住所</th><td>{{ $input['address'] }}</td></tr>
         <tr><th>電話番号</th><td>{{ $input['phone_number'] }}</td></tr>
        <tr><th>店舗画像</th><td>
-        @if($imagePath)
-            <img src="{{ asset('storage/' . $imagePath) }}" width="200">
-        @else
-            なし
-        @endif
+       @php
+         $path = session('temp_image_path', $imagePath);
+       @endphp
+
+      @if($path)
+         <img src="data:image/png;base64,{{ $path }}" width="200">
+      @else
+          なし
+      @endif
+
     </td>
 </tr>
     </tbody>

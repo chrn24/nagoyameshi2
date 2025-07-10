@@ -12,10 +12,11 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
                         <a href="{{ route('shops.show', $reservation->shop->id) }}">
-                            <img src="{{ asset('storage/' . $reservation->shop->image) }}"
+                            <img src="data:image/png;base64,{{ $reservation->shop->image }}"
                                  class="card-img-top"
                                  alt="{{ $reservation->shop->name }}"
                                  style="height: 200px; object-fit: cover;">
+                                 
                         </a>
                         <div class="card-body text-start">
                             <h5 class="card-title">

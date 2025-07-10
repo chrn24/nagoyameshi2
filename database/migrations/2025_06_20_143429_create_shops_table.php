@@ -17,8 +17,8 @@ return new class extends Migration
               $table->id();
               $table->foreignId('category_id')->constrained()->onDelete('cascade');
               $table->string('name', 100);
-              $table->string('image')->nullable();
-              $table->text('description')->nullable();
+              $table->text('image')->nullable();
+              $table->string('description')->nullable();
               $table->integer('price_min')->nullable();
               $table->integer('price_max')->nullable();
               $table->string('business_hours', 100)->nullable();

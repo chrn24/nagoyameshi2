@@ -28,8 +28,8 @@
         <tr>
             <td>{{ $shop->category->name ?? '未設定' }}</td>
             <td>
-                @if(Str::startsWith($shop->image, 'shops/'))
-                 <img src="{{ asset('storage/' . $shop->image) }}" alt="..." style="max-width: 150px;">
+                @if($shop->image)
+                 <img src="data:image/png;base64,{{ $shop->image }}" style="max-width: 150px;">
                 @else
                  <img src="{{ asset($shop->image) }}" alt="..." style="max-width: 150px;">
                 @endif

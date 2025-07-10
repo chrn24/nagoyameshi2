@@ -5,7 +5,8 @@
     <div class="row mb-4">
         {{-- 左カラム：画像 --}}
         <div class="col-md-5">
-            <img src="{{ asset('storage/' . $shop->image) }}" alt="{{ $shop->name }}" class="img-fluid rounded shadow-sm">
+            <img src="data:image/png;base64,{{ $shop->image }}" alt="{{ $shop->name }}" class="img-fluid rounded shadow-sm">
+            
         </div>
 
         {{-- 右カラム：店舗情報 --}}

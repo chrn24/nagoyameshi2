@@ -13,11 +13,12 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm">
                         <a href="{{ route('shops.show', $shop->id) }}">
-                            <img src="{{ asset('storage/' . $shop->image) }}"
+                            <img src="data:image/png;base64,{{ $shop->image }}"
                                  class="card-img-top"
                                  alt="{{ $shop->name }}"
                                  style="height: 200px; object-fit: cover;">
                         </a>
+                        
                          
                         <div class="card-body text-start">
                             <h5 class="card-title">

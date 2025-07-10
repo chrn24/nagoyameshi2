@@ -43,7 +43,8 @@
                 @if($shop->image)
                     <div class="mt-2">
                         <p>現在の画像：</p>
-                        <img src="{{ asset('storage/' . $shop->image) }}" width="200">
+                        <img src="data:image/png;base64,{{ $shop->image }}" width="200">
+                        
                     </div>
                 @endif
 
