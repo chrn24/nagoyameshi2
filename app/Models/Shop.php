@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Reservation;
+use App\Models\User;
 
 class Shop extends Model
 {
@@ -43,6 +45,16 @@ class Shop extends Model
    {
      return $this->belongsToMany(User::class, 'favorites', 'shop_id', 'user_id')->withTimestamps();
    }
+
+   public function reservations()
+{
+    return $this->hasMany(Reservation::class);
+}
+
+public function favoredByUsers()
+{
+    return $this->belongsToMany(User::class, 'favorites');
+}
 
 
 }

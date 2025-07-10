@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [UserController::class, 'mypage'])->name('users.mypage');
     Route::get('/users/show', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/update', [UserController::class, 'update'])->name('users.update');
     Route::post('/favorites/{shop}', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{shop}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
@@ -66,7 +67,9 @@ Route::middleware(['auth', EnsurePremium::class])->group(function () {
     Route::post('/reviews/update', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.cancel');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::get('/users/favorites', [UserController::class, 'favoriteShops'])->name('users.favorites');
 });
 
 

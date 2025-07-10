@@ -8,6 +8,7 @@
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4 fs-4">パスワードリセット</h4>
 
+
                     <form method="POST" action="{{ route('password.store') }}">
                         @csrf
 

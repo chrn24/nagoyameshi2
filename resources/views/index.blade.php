@@ -69,8 +69,9 @@
                   <div class="card-body text-start">
                       <p class="mb-1"><strong>カテゴリ:</strong> {{ $shop->category->name ?? '未分類' }}</p>
                       <h5 class="card-title">
-                          <a href="{{ route('shops.show', $shop->id) }}" class="text-decoration-none text-dark">
-                              <strong>店舗名:</strong>{{ $shop->name }}
+                        <strong>店舗名:</strong>
+                          <a href="{{ route('shops.show', $shop->id) }}" class="shop-name-link">
+                              {{ $shop->name }}
                           </a>
                       </h5>
                       <p class="mb-1"><strong>価格帯:</strong> ¥{{ number_format($shop->price_min) }} ～ ¥{{ number_format($shop->price_max) }}</p>

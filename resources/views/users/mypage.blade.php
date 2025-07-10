@@ -32,7 +32,7 @@
                                 <a href="{{ route('reservations.index') }}" class="text-decoration-none">予約一覧</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="{{ route('favorites.index') }}" class="text-decoration-none">お気に入り一覧</a>
+                                <a href="{{ route('users.favorites') }}" class="text-decoration-none">お気に入り一覧</a>
                             </li>
 
                             <li class="list-group-item">

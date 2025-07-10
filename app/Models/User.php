@@ -11,6 +11,7 @@ use Laravel\Cashier\Billable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Cashier\Subscription;
 use Illuminate\Support\Carbon;
+use App\Models\Shop;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -78,6 +79,12 @@ public function UserSubscriptions()
 {
     return $this->hasMany(\App\Models\UserSubscription::class);
 }
+
+public function favorites()
+{
+    return $this->belongsToMany(Shop::class, 'favorites');
+}
+
 
 
 }
