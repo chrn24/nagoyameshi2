@@ -14,10 +14,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = \App\Models\Category::orderBy('created_at', 'desc')->get();
-        return view('admin.categories.index', compact('categories'));
+         $keyword = $request->input('keyword');
+
+         $categories = \App\Models\Category::when($keyword, function ($query, $keyword) {
+            return $query->where('name', 'like', '%' . $keyword . '%');
+        })
+        ->orderBy('created_at', 'desc') // 既存の並び順はそのまま保持
+        ->get();
+
+    return view('admin.categories.index', compact('categories', 'keyword'));
     }
 
     /**

@@ -2,7 +2,15 @@
 
 @section('content')
 <h2>カテゴリ管理</h2>
-<br>
+
+<form method="GET" action="{{ route('admin.categories.index') }}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="keyword" class="form-control" placeholder="カテゴリ名を入力"
+               value="{{ request('keyword') }}">
+        <button type="submit" class="btn btn-outline-success">検索</button>
+    </div>
+</form>
+
 
 {{-- 新規カテゴリ追加フォーム --}}
 <a href="{{ route('admin.categories.create') }}" class="btn btn-success mb-3">＋ 新規カテゴリ追加</a>

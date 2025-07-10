@@ -4,6 +4,15 @@
 
 <h2>店舗一覧</h2>
 
+<form method="GET" action="{{ route('admin.shops.index') }}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="keyword" class="form-control" placeholder="店舗名を入力"
+               value="{{ request('keyword') }}">
+        <button type="submit" class="btn btn-outline-primary">検索</button>
+    </div>
+</form>
+
+
 <a href="{{ route('admin.shops.create') }}" class="btn btn-primary mb-3">＋ 店舗登録</a>
 
 <table class="table table-bordered">

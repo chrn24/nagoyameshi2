@@ -14,10 +14,17 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-         $shops = Shop::with('category')->get(); // リレーション必要
-         return view('admin.shops.index', compact('shops'));
+         $keyword = $request->input('keyword');
+
+         $shops = Shop::with('category')
+         ->when($keyword, function($query, $keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+         })
+         ->get();
+
+        return view('admin.shops.index', compact('shops', 'keyword'));
     }
 
     /**
