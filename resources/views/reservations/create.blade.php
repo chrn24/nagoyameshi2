@@ -9,6 +9,15 @@
         <div class="col-md-6">
             <form method="POST" action="{{ route('reservations.confirm') }}" class="p-4 border rounded bg-light">
                 @csrf
+                @if ($errors->any())
+                 <div class="alert alert-danger">
+                 <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                 </ul>
+                 </div>
+                @endif
 
                 <div class="mb-3">
                     <label class="form-label">日付</label>

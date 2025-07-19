@@ -53,12 +53,15 @@ class ShopController extends Controller
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
         'price_max' => 'nullable|integer',
-        'business_hours' => 'nullable|string|max:100',
+        'business_hours' => ['nullable', 'regex:/^\d{1,2}:\d{2}[\-–—ー−〜～~－]\d{1,2}:\d{2}$/'],
+
         'business_period' => 'nullable|string|max:100',
         'closed_day' => 'nullable|string|max:100',
         'zip_code' => 'nullable|string|max:10',
         'address' => 'nullable|string',
         'phone_number' => 'nullable|string|max:20',
+    ],[
+        'business_hours.regex' => '営業時間の形式は「HH:MM-HH:MM」または「HH:MM〜HH:MM」で入力してください。',
     ]);
 
    $validated['image'] = $request->input('imagePath');
@@ -84,13 +87,17 @@ class ShopController extends Controller
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
         'price_max' => 'nullable|integer',
-        'business_hours' => 'nullable|string|max:100',
+        'business_hours' => ['nullable', 'regex:/^\d{1,2}:\d{2}[\-–—ー−〜～~－]\d{1,2}:\d{2}$/'],
+
         'business_period' => 'nullable|string|max:100',
         'closed_day' => 'nullable|string|max:100',
         'zip_code' => 'nullable|string|max:10',
         'address' => 'nullable|string',
         'phone_number' => 'nullable|string|max:20',
+    ],[
+        'business_hours.regex' => '営業時間の形式は「HH:MM-HH:MM」または「HH:MM〜HH:MM」で入力してください。',
     ]);
+
     $imagePath = null;
 
     // 画像一時保存
@@ -140,12 +147,15 @@ class ShopController extends Controller
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
         'price_max' => 'nullable|integer',
-        'business_hours' => 'nullable|string|max:100',
+        'business_hours' => ['nullable', 'regex:/^\d{1,2}:\d{2}[\-–—ー−〜～~－]\d{1,2}:\d{2}$/'],
+
         'business_period' => 'nullable|string|max:100',
         'closed_day' => 'nullable|string|max:100',
         'zip_code' => 'nullable|string|max:10',
         'address' => 'nullable|string',
         'phone_number' => 'nullable|string|max:20',
+   ],[
+        'business_hours.regex' => '営業時間の形式は「HH:MM-HH:MM」または「HH:MM〜HH:MM」で入力してください。',
     ]);
 
     $imagePath = null;
@@ -180,12 +190,14 @@ class ShopController extends Controller
         'description' => 'nullable|string',
         'price_min' => 'nullable|integer',
         'price_max' => 'nullable|integer',
-        'business_hours' => 'nullable|string|max:100',
+        'business_hours' => ['nullable', 'regex:/^\d{1,2}:\d{2}[\-–—ー−〜～~－]\d{1,2}:\d{2}$/'],
         'business_period' => 'nullable|string|max:100',
         'closed_day' => 'nullable|string|max:100',
         'zip_code' => 'nullable|string|max:10',
         'address' => 'nullable|string',
         'phone_number' => 'nullable|string|max:20',
+    ],[
+        'business_hours.regex' => '営業時間の形式は「HH:MM-HH:MM」または「HH:MM〜HH:MM」で入力してください。',
     ]);
 
 //     // 画像アップロード

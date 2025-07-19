@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Shop;
 
 class ReservationController extends Controller
 {
@@ -28,6 +29,7 @@ class ReservationController extends Controller
 
 public function confirm(Request $request)
     {
+        
         // dd($request);
         $validated = $request->validate([
         'reservation_date' => 'required|date|after_or_equal:today',
@@ -35,6 +37,29 @@ public function confirm(Request $request)
         'number_of_people' => 'required|integer|min:1',
 
     ]);
+
+      //Shopモデルを使って店舗情報を取得
+        $shop = Shop::find($request->shop_Id);
+
+        if (!$shop) {
+            return back()->withErrors(['shop_Id' => '店舗が見つかりませんでした。']);
+        }
+
+        //営業時間（例：11:00〜22:00）を分解してチェック
+        if ($shop->business_hours) {
+            [$start, $end] = preg_split('/[\-–—ー−〜～~－]/u', $shop->business_hours);
+
+
+            $reservationTime = \Carbon\Carbon::createFromFormat('H:i', $validated['reservation_time']);
+            $startTime = \Carbon\Carbon::createFromFormat('H:i', $start);
+            $endTime = \Carbon\Carbon::createFromFormat('H:i', $end);
+
+            if ($reservationTime->lt($startTime) || $reservationTime->gt($endTime)) {
+                return back()->withErrors([
+                    'reservation_time' => '営業時間外の時間は予約できません（営業時間：' . $shop->business_hours . '）'
+                ])->withInput();
+            }
+        }
 
     $data = $validated;
 

@@ -4,9 +4,6 @@
 <div class="container">
     <h2 class="mb-4">店舗情報編集</h2>
 
-    <div class="container">
-    <h2 class="mb-4">店舗情報新規登録</h2>
-
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
