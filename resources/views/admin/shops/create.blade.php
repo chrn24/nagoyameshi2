@@ -82,18 +82,23 @@
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                 <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
+                    <label for="business_period" class="form-label">営業期間：</label>
+                    <input type="text" name="business_period" id="business_period" maxlength="100" value="{{ old('business_period') }}" class="form-control">
+                    @error('business_period')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label for="closed_day" class="form-label">店休日：</label>
                     <input type="text" name="closed_day" id="closed_day" maxlength="100" value="{{ old('closed_day') }}" class="form-control">
                     @error('closed_day')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                
-            </div>
-
-            <div class="row">
-               
                 <div class="col-md-6 mb-3">
                     <label for="phone_number" class="form-label">電話番号：</label>
                     <input type="text" name="phone_number" id="phone_number" maxlength="20" value="{{ old('phone_number') }}" class="form-control">
