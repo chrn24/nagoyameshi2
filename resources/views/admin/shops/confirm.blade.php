@@ -26,7 +26,6 @@
         <tr><th>金額下限</th><td>{{ $input['price_min'] }} 円</td></tr>
         <tr><th>金額上限</th><td>{{ $input['price_max'] }} 円</td></tr>
         <tr><th>営業時間</th><td>{{ $input['business_hours'] }}</td></tr>
-        <tr><th>営業期間</th><td>{{ $input['business_period'] }}</td></tr>
         <tr><th>郵便番号</th><td>{{ $input['zip_code'] }}</td></tr>
         <tr><th>住所</th><td>{{ $input['address'] }}</td></tr>
         <tr><th>電話番号</th><td>{{ $input['phone_number'] }}</td></tr>
